@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,6 +8,9 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference users = firestore.collection('users');
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue[900],
@@ -73,6 +77,13 @@ class MainPage extends StatelessWidget {
                             ),
                             onPressed: () {
                               //// ADD DATA HERE
+                              users.add({
+                                'name': nameController.text,
+                                'age': int.tryParse(ageController.text) ?? 0,
+                              });
+
+                              nameController.text = '';
+                              ageController.text = '';
                             }),
                       )
                     ],

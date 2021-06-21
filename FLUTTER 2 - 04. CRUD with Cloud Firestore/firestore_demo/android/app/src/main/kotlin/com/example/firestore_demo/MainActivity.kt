@@ -1,4 +1,4 @@
-package com.example.firestore_demo
+package com.ridhaaf.firestore_demo
 
 import io.flutter.embedding.android.FlutterActivity
 
