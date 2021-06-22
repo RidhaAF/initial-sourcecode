@@ -24,7 +24,7 @@ class MainPage extends StatelessWidget {
               children: [
                 //// VIEW DATA HERE
                 StreamBuilder<QuerySnapshot>(
-                  stream: users.snapshots(),
+                  stream: users.orderBy('age').snapshots(),
                   builder: (_, snapshot) {
                     if (snapshot.hasData) {
                       return Column(
@@ -33,6 +33,14 @@ class MainPage extends StatelessWidget {
                               (e) => ItemCard(
                                 e.data()['name'],
                                 e.data()['age'],
+                                onUpdate: () {
+                                  users.doc(e.id).update(
+                                    {'age': e.data()['age'] + 1},
+                                  );
+                                },
+                                onDelete: () {
+                                  users.doc(e.id).delete();
+                                },
                               ),
                             )
                             .toList(),
